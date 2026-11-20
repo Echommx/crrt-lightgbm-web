@@ -1,0 +1,11 @@
+{
+  "model": "LightGBM_trend",
+  "release_type": "minimal_local_web_runtime",
+  "simulated_example": "examples/simulated_input.xlsx",
+  "excluded": [
+    "raw patient data",
+    "training outputs",
+    "SHAP caches",
+    "other model directories"
+  ]
+}

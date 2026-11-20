@@ -1,0 +1,15 @@
+{
+  "fingerprint": "798b61f5330a2bc436e1b91380a7ebb41c7b73756d1896e66357499d8ad308e4",
+  "finished_utc": "2026-11-17T07:51:30.303965+00:00",
+  "files": {
+    "effective_estimator_parameters.json": "b12afe8aeefe3bed887b4ac7c2300ef5577e68d404d842c1d91a52decdec19b3",
+    "environment.json": "4dd2ec266d8262ba3d60fad158fe07de9bc69ab04aaab6b4e7095595045ef571",
+    "fit_audit.json": "413a616d8bb0bb09978a146661a6fe5e6d21746ebe157b7b114916f8ffad61b9",
+    "mimic_training_predictions.npz": "41b55791f708071a5ac72bf40db87bab0532144b759d8a828bb7fbbaf32dc9cd",
+    "model.joblib": "b050d53eaedebb35c829a64de0ee07b1a5374cbef71161bf6e23ede214e74db2",
+    "provenance.json": "f3acc62cfa15108194969e0e3cc2ea5c20145e9defcf99b75071eeaaf168a54c",
+    "thresholds.json": "b98059061e75438782d98ab7c884f849170a9b67cf4f2ec582896459ffe413f9",
+    "training_metrics.json": "2f461506142245c5a759ac46ddc079609784dc8e6ae98e4f9617a7d431eb26ad"
+  },
+  "seconds": 1.3780978999566287
+}

@@ -1,0 +1,26 @@
+{
+  "LightGBM_trend": {
+    "parameter_id": "R42_fixed",
+    "spec": {
+      "params": {
+        "n_estimators": 300,
+        "learning_rate": 0.03,
+        "num_leaves": 15,
+        "max_depth": 4,
+        "min_child_samples": 30,
+        "subsample": 0.8,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.8,
+        "reg_alpha": 0.5,
+        "reg_lambda": 10.0,
+        "objective": "binary",
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1
+      },
+      "patient_equal_weight": true,
+      "class_balance": "sqrt"
+    },
+    "seed": 20261116
+  }
+}

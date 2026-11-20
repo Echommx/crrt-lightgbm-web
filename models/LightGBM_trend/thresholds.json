@@ -1,0 +1,6 @@
+{
+  "fixed_0_5": 0.5,
+  "mimic_apparent_sensitivity_target": 0.19142376860354557,
+  "target": 0.85,
+  "origin": "MIMIC_FITTED_TRAINING_ONLY_NOT_VALIDATED"
+}

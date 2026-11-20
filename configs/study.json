@@ -1,0 +1,224 @@
+{
+  "version": "R43_1_R42_MINIMAL_CORE",
+  "seed": 20261109,
+  "endpoint": "y_primary",
+  "endpoint_description": "MIMIC R12 unchanged: same-day documented antibacterial R. ZJ R13: any final result line in an exactly linked culture report containing ASCII r/R, OR conservative species/phenotype in a final culture result (species caution filter applied). No AST veto. No drug upgrade outcome.",
+  "event_source_zj": "CULTURE_DAY",
+  "exposure_tier_zj": "D_ANY_RENAL_KEYWORD_AUDIT",
+  "event_selection": "natural_day",
+  "require_crrt_before_t0": false,
+  "require_age18": true,
+  "hours": 24,
+  "bin_hours": 1,
+  "features": [
+    "heart_rate",
+    "temperature",
+    "respiratory_rate",
+    "map",
+    "spo2",
+    "wbc",
+    "platelets",
+    "lactate",
+    "creatinine",
+    "glucose"
+  ],
+  "static_numeric": [
+    "age",
+    "sex_female",
+    "sex_unknown",
+    "history_diabetes",
+    "history_ckd",
+    "history_chronic_liver",
+    "history_malignancy",
+    "history_chronic_lung",
+    "history_heart_failure",
+    "specimen_site_blood",
+    "specimen_site_respiratory",
+    "specimen_site_urine",
+    "specimen_site_other",
+    "specimen_site_unknown",
+    "antibiotic_exposure_7d",
+    "antibiotic_classes_7d",
+    "carbapenem_exposure_7d",
+    "invasive_ventilation_t0"
+  ],
+  "summary_stats": [
+    "last",
+    "median",
+    "min",
+    "max",
+    "std",
+    "delta",
+    "slope_per_hour",
+    "n_times",
+    "late6_minus_early6"
+  ],
+  "vital_ttl_hours": 6,
+  "lab_ttl_hours": 24,
+  "unit_contract": {
+    "heart_rate": "bpm",
+    "temperature": "degC",
+    "respiratory_rate": "breaths/min",
+    "map": "mmHg",
+    "spo2": "%",
+    "wbc": "10^9/L",
+    "platelets": "10^9/L",
+    "lactate": "mmol/L",
+    "creatinine": "mg/dL",
+    "glucose": "mg/dL"
+  },
+  "plausible_ranges": {
+    "heart_rate": [
+      1,
+      300
+    ],
+    "temperature": [
+      20,
+      45
+    ],
+    "respiratory_rate": [
+      1,
+      100
+    ],
+    "map": [
+      1,
+      250
+    ],
+    "spo2": [
+      1,
+      100
+    ],
+    "wbc": [
+      0.01,
+      500
+    ],
+    "platelets": [
+      0,
+      3000
+    ],
+    "lactate": [
+      0.01,
+      40
+    ],
+    "creatinine": [
+      0.01,
+      50
+    ],
+    "glucose": [
+      1,
+      2000
+    ]
+  },
+  "models": [
+    "LR_trend",
+    "XGB_trend",
+    "LightGBM_trend",
+    "GRU",
+    "LSTM",
+    "TCN"
+  ],
+  "train_patient_equal_weight": true,
+  "sensitivity_target": 0.85,
+  "bootstrap_iterations": 500,
+  "min_development_positive_patients": 20,
+  "min_development_negative_patients": 20,
+  "hidden_size": 16,
+  "dropout": 0.2,
+  "batch_size": 64,
+  "learning_rate": 0.001,
+  "weight_decay": 0.001,
+  "n_jobs": 2,
+  "history_policy": "CURRENT_ADMISSION_AND_DISCHARGE_DIAGNOSES_RETROSPECTIVE",
+  "history_fields": [
+    "history_diabetes",
+    "history_ckd",
+    "history_chronic_liver",
+    "history_malignancy",
+    "history_chronic_lung",
+    "history_heart_failure"
+  ],
+  "site_categories": [
+    "blood",
+    "respiratory",
+    "urine",
+    "other",
+    "unknown"
+  ],
+  "static_input_fields": [
+    "age",
+    "sex",
+    "history_diabetes",
+    "history_ckd",
+    "history_chronic_liver",
+    "history_malignancy",
+    "history_chronic_lung",
+    "history_heart_failure",
+    "specimen_site",
+    "antibiotic_exposure_7d",
+    "antibiotic_classes_7d",
+    "carbapenem_exposure_7d",
+    "invasive_ventilation_t0"
+  ],
+  "vent_lookback_hours": 6,
+  "antibiotic_lookback_hours": 168,
+  "antibiotic_evidence": "PRESCRIPTION_ORDER_PROXY_WITH_ROUTE_AND_TIME_CHECKS",
+  "observation_time_policy": "charttime_only",
+  "code_version": "41.0.0",
+  "ventilation_policy": "BROAD_MODE_OR_AIRWAY_PROXY_UNKNOWN_ZERO_CHARTTIME_6H",
+  "signature_boundary": "patient_hospital_admission_local_calendar_day",
+  "progress_every": 250,
+  "zj_cohort_exposure_interpretation": "Any non-negated renal-related order keyword includes supplies, access, monitoring, dialysis and liver-support review; NOT evidence-confirmed CRRT or RRT administration.",
+  "day_key": [
+    "patient_id",
+    "hospital_id",
+    "culture_date"
+  ],
+  "label_policy_by_source": {
+    "mimic": "DAY_LAB_R_RECORD",
+    "zj": "DAY_FINAL_REPORT_RESULTS_ILIKE_R_OR_CONSERVATIVE_SPECIES_NO_DRUG96"
+  },
+  "post_t0_fields_forbidden_in_X": [
+    "y_primary",
+    "y_lab_r",
+    "med_proxy_96h",
+    "resistance_evidence_type",
+    "n_day_reports",
+    "day_has_ast",
+    "n_reports_with_ast",
+    "proxy_drug_name",
+    "first_proxy_at",
+    "n_new_target_drugs",
+    "label_matured_at",
+    "y_text_r",
+    "y_species_conservative",
+    "y_explicit_phenotype",
+    "y_exact_r_text",
+    "y_parsed_antibacterial_r",
+    "y_ast_or_explicit_phenotype_audit",
+    "result_raw",
+    "result_regex",
+    "label_policy",
+    "rule_ids",
+    "organism_names",
+    "contains_r_rows",
+    "contains_r_nonast_rows",
+    "contains_r_caution_rows",
+    "conservative_rows",
+    "conservative_blocked_rows",
+    "final_result_rows",
+    "nonempty_result_rows",
+    "n_result_version_conflicts",
+    "first_positive_result_at",
+    "last_result_at"
+  ],
+  "implementation_choices_note": "R13 implements the user-selected literal results ILIKE %r% OR conservative text rule in ZJ. MIMIC SQL/Y unchanged. X settings and D-tier are inherited, not newly validated clinical definitions.",
+  "rebuild_mode": "RAW_ONLY_NO_OLD_SCHEMA",
+  "cohort_scope_policy": "MIMIC_CRRT_ICU_INTERVAL;ZJ_DR_VERIFIED_ICU_INTERVAL",
+  "history_window_boundary": "MAX_T0_MINUS24H_ANCHOR_ICU_START_TO_T0_END_EXCLUSIVE_ICU",
+  "cohort_scope_zj": "DR_RICU_CICU_INTERVAL_STRICT",
+  "ast_precedence_by_source": {
+    "mimic": "LAB_R_PRIMARY",
+    "zj": "NONE_OR_RULE"
+  },
+  "external_endpoint_change_acknowledged": true
+}

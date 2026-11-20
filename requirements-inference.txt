@@ -1,0 +1,8 @@
+numpy
+pandas
+scipy
+scikit-learn
+joblib
+lightgbm
+threadpoolctl
+openpyxl>=3.1

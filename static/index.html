@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CRRT Resistance Risk Prediction</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main class="page">
+  <header>
+    <h1>CRRT Resistance Risk Prediction</h1>
+    <p class="subtitle">Enter the clinical variables available before the index culture event.</p>
+  </header>
+
+  <section class="card form-card">
+    <div class="section-title">Patient and event information</div>
+    <div class="field-grid">
+      <label>Prediction time (T0)<input id="t0" type="datetime-local"></label>
+      <label>ICU start time<input id="start_time" type="datetime-local"></label>
+      <label>Age (years)<input id="age" type="number" min="18" max="120" step="1"></label>
+      <label>Sex<select id="sex"><option value="F">Female</option><option value="M">Male</option><option value="unknown">Unknown</option></select></label>
+      <label>Specimen site<select id="specimen_site"><option value="blood">Blood</option><option value="respiratory">Respiratory</option><option value="urine">Urine</option><option value="other">Other</option><option value="unknown">Unknown</option></select></label>
+      <label>Antibiotic exposure, 7 d<select id="antibiotic_exposure_7d"><option value="0">No</option><option value="1">Yes</option></select></label>
+      <label>Antibiotic classes, 7 d<input id="antibiotic_classes_7d" type="number" min="0" max="20" step="1"></label>
+      <label>Carbapenem exposure, 7 d<select id="carbapenem_exposure_7d"><option value="0">No</option><option value="1">Yes</option></select></label>
+      <label>Invasive ventilation at T0<select id="invasive_ventilation_t0"><option value="0">No</option><option value="1">Yes</option></select></label>
+      <label>Diabetes<select id="history_diabetes"><option value="0">No</option><option value="1">Yes</option></select></label>
+      <label>Chronic kidney disease<select id="history_ckd"><option value="0">No</option><option value="1">Yes</option></select></label>
+      <label>Chronic liver disease<select id="history_chronic_liver"><option value="0">No</option><option value="1">Yes</option></select></label>
+      <label>Malignancy<select id="history_malignancy"><option value="0">No</option><option value="1">Yes</option></select></label>
+      <label>Chronic lung disease<select id="history_chronic_lung"><option value="0">No</option><option value="1">Yes</option></select></label>
+      <label>Heart failure<select id="history_heart_failure"><option value="0">No</option><option value="1">Yes</option></select></label>
+    </div>
+
+    <div class="section-title dynamic-title">Recent measurements</div>
+    <p class="small">The quick form is a compact view using the latest pre-T0 value from each channel. For the complete LightGBM trend input, download the Excel example, retain one row per measurement from the preceding 24 hours, and upload the edited workbook. The model derives 18 encoded static inputs plus 90 trend summaries (10 channels × 9 summaries).</p>
+    <div class="field-grid dynamic-grid">
+      <label>Heart rate (bpm)<input id="heart_rate" type="number" step="0.01"></label>
+      <label>Temperature (°C)<input id="temperature" type="number" step="0.01"></label>
+      <label>Respiratory rate (breaths/min)<input id="respiratory_rate" type="number" step="0.01"></label>
+      <label>MAP (mmHg)<input id="map" type="number" step="0.01"></label>
+      <label>SpO₂ (%)<input id="spo2" type="number" step="0.01"></label>
+      <label>WBC (10⁹/L)<input id="wbc" type="number" step="0.01"></label>
+      <label>Platelets (10⁹/L)<input id="platelets" type="number" step="0.01"></label>
+      <label>Lactate (mmol/L)<input id="lactate" type="number" step="0.01"></label>
+      <label>Creatinine (mg/dL)<input id="creatinine" type="number" step="0.01"></label>
+      <label>Glucose (mg/dL)<input id="glucose" type="number" step="0.01"></label>
+    </div>
+
+    <div class="actions">
+      <button id="predict" class="predict" disabled>Predict</button>
+      <button id="download-xlsx" class="secondary">Download Excel example</button>
+      <label class="upload">Upload Excel (.xlsx)<input id="upload" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label>
+      <span id="status" class="status">Loading…</span>
+    </div>
+    <div id="error" role="alert"></div>
+  </section>
+
+  <section class="card result-card">
+    <div class="section-title">Prediction</div>
+    <div id="risk" class="risk neutral">—</div>
+    <div class="score-row"><span id="score">—</span><span>%</span></div>
+    <p id="result-note" class="small">The result will be shown here after prediction.</p>
+  </section>
+
+  <footer>Research use only. The displayed outcome is a study-defined high-risk or low-risk classification.</footer>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>
